@@ -11,18 +11,18 @@
 
 @interface EVEIndustryJobsItem : NSObject<NSCoding>
 
-@property (nonatomic) int32_t runs, licensedRuns, stationID,
-  productTypeName, status, blueprintLocationID, productTypeID, activityID, blueprintTypeID;
+@property (nonatomic) int32_t runs, licensedRuns, stationID, status, productTypeID, activityID, blueprintTypeID, timeInSeconds,
+  facilityID, solarSystemID, teamID;
 
 @property (nonatomic) int64_t jobID, installerID,
-  facilityID, solarSystemID,
-  blueprintID, outputLocationID,
-  teamID, timeInSeconds, completedCharacterID;
+
+  blueprintID, outputLocationID, blueprintLocationID,
+  completedCharacterID;
 
 /* probability's type not shown in documentation, we assume it as float */
 @property (nonatomic) float cost, probability;
 @property (nonatomic, strong) NSDate *startDate, *endDate, *pauseDate, *completedDate;
-@property (nonatomic, strong) NSString *installerName, *solarSystemName, *blueprintTypeName;
+@property (nonatomic, strong) NSString *installerName, *solarSystemName, *blueprintTypeName, *productTypeName;
 
 + (id) industryJobsItemWithXMLAttributes:(NSDictionary *)attributeDict;
 - (id) initWithXMLAttributes:(NSDictionary *)attributeDict;

@@ -18,22 +18,22 @@
 	if (self = [super init]) {
 		self.jobID = [[attributeDict valueForKey:@"jobID"] longLongValue];
 		self.installerID = [[attributeDict valueForKey:@"installerID"] longLongValue];
-		self.facilityID = [[attributeDict valueForKey:@"facilityID"] longLongValue];
-		self.solarSystemID = [[attributeDict valueForKey:@"solarSystemID"] longLongValue];
+		self.facilityID = [[attributeDict valueForKey:@"facilityID"] intValue];
+		self.solarSystemID = [[attributeDict valueForKey:@"solarSystemID"] intValue];
 		self.stationID = [[attributeDict valueForKey:@"stationID"] intValue];
 		self.activityID = [[attributeDict valueForKey:@"activityID"] intValue];
 		self.blueprintID = [[attributeDict valueForKey:@"blueprintID"] longLongValue];
 		self.blueprintTypeID = [[attributeDict valueForKey:@"blueprintTypeID"] intValue];
-		self.blueprintLocationID = [[attributeDict valueForKey:@"blueprintLocationID"] intValue];
+		self.blueprintLocationID = [[attributeDict valueForKey:@"blueprintLocationID"] longLongValue];
 		self.outputLocationID = [[attributeDict valueForKey:@"outputLocationID"] longLongValue];
 		self.installerID = [[attributeDict valueForKey:@"installerID"] intValue];
 		self.runs = [[attributeDict valueForKey:@"runs"] intValue];
-		self.teamID = [[attributeDict valueForKey:@"teamID"] longLongValue];
+		self.teamID = [[attributeDict valueForKey:@"teamID"] intValue];
 		self.licensedRuns = [[attributeDict valueForKey:@"licensedRuns"] intValue];
-		self.productTypeID = [[attributeDict valueForKey:@"productTypeID"] floatValue];
-		self.productTypeName = [[attributeDict valueForKey:@"productTypeName"] intValue];
+		self.productTypeID = [[attributeDict valueForKey:@"productTypeID"] intValue];
+		self.productTypeName = [attributeDict valueForKey:@"productTypeName"];
 		self.status = [[attributeDict valueForKey:@"status"] intValue];
-		self.timeInSeconds = [[attributeDict valueForKey:@"timeInSeconds"] longLongValue];
+		self.timeInSeconds = [[attributeDict valueForKey:@"timeInSeconds"] intValue];
 		self.completedCharacterID = [[attributeDict valueForKey:@"completedCharacterID"] longLongValue];
 		self.cost = [[attributeDict valueForKey:@"cost"] floatValue];
 		self.probability = [[attributeDict valueForKey:@"probability"] floatValue];
@@ -53,59 +53,58 @@
 - (void)encodeWithCoder:(NSCoder *)aCoder {
 	[aCoder encodeInt64:self.jobID forKey:@"jobID"];
 	[aCoder encodeInt64:self.installerID forKey:@"installerID"];
-	[aCoder encodeInt64:self.facilityID forKey:@"facilityID"];
-	[aCoder encodeInt64:self.solarSystemID forKey:@"solarSystemID"];
+	[aCoder encodeInt32:self.facilityID forKey:@"facilityID"];
+	[aCoder encodeInt32:self.solarSystemID forKey:@"solarSystemID"];
 	[aCoder encodeInt32:self.stationID forKey:@"stationID"];
-	[aCoder encodeInt64:self.activityID forKey:@"activityID"];
+	[aCoder encodeInt32:self.activityID forKey:@"activityID"];
 	[aCoder encodeInt32:self.runs forKey:@"runs"];
 	[aCoder encodeInt64:self.blueprintID forKey:@"blueprintID"];
 	[aCoder encodeInt64:self.blueprintTypeID forKey:@"blueprintTypeID"];
 	[aCoder encodeInt64:self.blueprintLocationID forKey:@"blueprintLocationID"];
 	[aCoder encodeInt64:self.outputLocationID forKey:@"outputLocationID"];
-	[aCoder encodeInt64:self.runs forKey:@"runs"];
-	[aCoder encodeInt64:self.teamID forKey:@"teamID"];
+	[aCoder encodeInt32:self.teamID forKey:@"teamID"];
 	[aCoder encodeInt32:self.licensedRuns forKey:@"licensedRuns"];
 	[aCoder encodeInt64:self.productTypeID forKey:@"productTypeID"];
-	[aCoder encodeInt32:self.productTypeName forKey:@"productTypeName"];
 	[aCoder encodeInt32:self.status forKey:@"status"];
-	[aCoder encodeInt64:self.timeInSeconds forKey:@"timeInSeconds"];
-	[aCoder encodeInt64:self.activityID forKey:@"activityID"];
+	[aCoder encodeInt32:self.timeInSeconds forKey:@"timeInSeconds"];
 	[aCoder encodeInt64:self.completedCharacterID forKey:@"completedCharacterID"];
-  
-  [aCoder encodeFloat:self.cost forKey:@"cost"];
-  [aCoder encodeFloat:self.probability forKey:@"probability"];
-
+	
+	[aCoder encodeFloat:self.cost forKey:@"cost"];
+	[aCoder encodeFloat:self.probability forKey:@"probability"];
+	
 	[aCoder encodeObject:self.startDate forKey:@"startDate"];
 	[aCoder encodeObject:self.endDate forKey:@"endDate"];
 	[aCoder encodeObject:self.completedDate forKey:@"completedDate"];
 	[aCoder encodeObject:self.pauseDate forKey:@"pauseDate"];
-  
-  [aCoder encodeObject:self.installerName forKey:@"installerName"];
-  [aCoder encodeObject:self.solarSystemName forKey:@"solarSystemName"];
-  [aCoder encodeObject:self.blueprintTypeName forKey:@"blueprintTypeName"];
+	
+	[aCoder encodeObject:self.installerName forKey:@"installerName"];
+	[aCoder encodeObject:self.solarSystemName forKey:@"solarSystemName"];
+	[aCoder encodeObject:self.blueprintTypeName forKey:@"blueprintTypeName"];
+	[aCoder encodeObject:self.productTypeName forKey:@"productTypeName"];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
 	if (self = [super init]) {
-		self.jobID = [aDecoder decodeInt32ForKey:@"jobID"];
-		self.installerID = [aDecoder decodeInt32ForKey:@"installerID"];
+		self.jobID = [aDecoder decodeInt64ForKey:@"jobID"];
+		self.installerID = [aDecoder decodeInt64ForKey:@"installerID"];
 		self.facilityID = [aDecoder decodeInt32ForKey:@"facilityID"];
 		self.solarSystemID = [aDecoder decodeInt32ForKey:@"solarSystemID"];
 		self.stationID = [aDecoder decodeInt32ForKey:@"stationID"];
 		self.activityID = [aDecoder decodeInt32ForKey:@"activityID"];
-		self.blueprintID = [aDecoder decodeInt32ForKey:@"blueprintID"];
+		self.runs = [aDecoder decodeInt32ForKey:@"runs"];
+		self.blueprintID = [aDecoder decodeInt64ForKey:@"blueprintID"];
 		self.blueprintTypeID = [aDecoder decodeInt32ForKey:@"blueprintTypeID"];
-		self.outputLocationID = [aDecoder decodeInt32ForKey:@"outputLocationID"];
+		self.blueprintLocationID = [aDecoder decodeInt64ForKey:@"blueprintLocationID"];
+		self.outputLocationID = [aDecoder decodeInt64ForKey:@"outputLocationID"];
 		self.teamID = [aDecoder decodeInt32ForKey:@"teamID"];
 		self.licensedRuns = [aDecoder decodeInt32ForKey:@"licensedRuns"];
-    self.probability = [aDecoder decodeFloatForKey:@"probability"];
 		self.productTypeID = [aDecoder decodeInt32ForKey:@"productTypeID"];
-		self.productTypeName = [aDecoder decodeInt32ForKey:@"productTypeName"];
 		self.status = [aDecoder decodeInt32ForKey:@"status"];
 		self.timeInSeconds = [aDecoder decodeInt32ForKey:@"timeInSeconds"];
-		self.completedCharacterID = [aDecoder decodeInt32ForKey:@"completedCharacterID"];
+		self.completedCharacterID = [aDecoder decodeInt64ForKey:@"completedCharacterID"];
 		
 		self.cost = [aDecoder decodeFloatForKey:@"cost"];
+		self.probability = [aDecoder decodeFloatForKey:@"probability"];
     
 		self.startDate = [aDecoder decodeObjectForKey:@"startDate"];
 		self.endDate = [aDecoder decodeObjectForKey:@"endDate"];
@@ -115,6 +114,7 @@
 		self.installerName = [aDecoder decodeObjectForKey:@"installerName"];
 		self.solarSystemName = [aDecoder decodeObjectForKey:@"solarSystemName"];
 		self.blueprintTypeName = [aDecoder decodeObjectForKey:@"blueprintTypeName"];
+		self.productTypeName = [aDecoder decodeObjectForKey:@"productTypeName"];
     
 	}
 	return self;
